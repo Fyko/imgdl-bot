@@ -1,3 +1,36 @@
+# imGdL ☁
+a Discord bot to recursively download images from a Discord channel
+
+## Reference
+- Invite Link: https://fyko.net/bot?id=530204772633018378&p=116736
+
+## Usage
+After inviting the bot to your server with the link above, you can follow the command structure below to begin downloading images:
+> `dl!download #channel 718204818119852124`
+
+The first argumen being the channel you'd like to download the images from, and the second being the oldest message you'd like to fetch. If you don't provide a second argument it will do the whole channel.
+
+Once making it through the queue, you'll be notifited and updated throughout the downloading, zipping and uploading process. 
+
+After downloading all the images and creating a ZIP, it'll be uploaded to Amazon S3, a cloud file-storage service.
+
+**After 72 hours, the download link will be invalidated and the file will be deleted.**
+
+## How it (downloading) Works
+After the user runs the download command and permissions are checked, a new Download class is initialized and added to the DownloadManager queue. The queue is necessary since Cloudflare will ratelimit after 50 images have been downloaded, so the function will take a 3.5 second break every 50 images. If there are multiple downloads running at the same time -- and they're both taking 3.5 second breaks every 50 images -- semantically, that's a break every 100 images, which is not compliant with the ratelimit and will result in a dumpsterfire. As each image is being downloaded, the Response#body stream is being piped into a Write Stream in a temp. dir -- doing it this way is signifigantly more resource friendly. Per my testing, the Response#body can't be piped directly into the ZIP stream and results in corrupted images. Once all the images are downloaded, a new archive is initialized with [archiver](https://yarn.pm/archiver). A Read Stream is created for each image and is appended to the archive. Once all images have been appended, the archive is finalized and creates a {{uuid}}.zip file. If the file is under 8Mb, it can be uploaded directly to Discord. Else, it's uploaded to Amazon S3 with a 3 day expiration time.
+
+## Self Hosting
+Although there are self hosting instructions, I will not be providing support on the topic.
+
+1) Renamed `.env.example` to `.env` and fill in all necessary fields (there are descriptions for each)
+2a) Run `docker-compose up` to start the service and `docker-compose up -d` to run detached (in the background)
+2b) If running detached, you can stop the service with `docker-compose down` 
+
+## Funding
+Running this bot isn't free, especially with the additional Amazon S3 fees. Although not required, [a coffee](https://ko-fi.com/fykos) would be greatly appreciated.
+
+## __ README from template repository__
+
 # Discord Bot Template
 This Discord bot template uses the following technologies:
 * [PNPM](https://pnpm.js.org/) (package manager)

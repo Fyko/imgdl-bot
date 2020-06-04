@@ -3,7 +3,7 @@ import { connect, Model, connection, Connection } from 'mongoose';
 import { Logger } from 'winston';
 import GuildModel, { Guild } from '../models/Guild';
 import { MONGO_EVENTS } from '../util/constants';
-import Client from '../../bot/client/Client';
+import Client from '../../bot/client/ImgDlClient';
 
 let i = 0;
 

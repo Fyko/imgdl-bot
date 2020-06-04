@@ -1,7 +1,8 @@
-import { Argument, Command, PrefixSupplier } from 'discord-akairo';
+import { Argument, PrefixSupplier } from 'discord-akairo';
 import { Message } from 'discord.js';
+import ImgDlCommand from '../../structures/ImgDlCommand';
 
-export default class PrefixCommand extends Command {
+export default class extends ImgDlCommand {
 	public constructor() {
 		super('prefix', {
 			category: 'utilities',
@@ -11,8 +12,8 @@ export default class PrefixCommand extends Command {
 					id: 'prefix',
 					type: Argument.validate('string', (_, p) => !/\s/.test(p) && p.length <= 10),
 					prompt: {
-						start: 'What do you want to set the prefix to?',
-						retry: "C'mon. I need a prefix without spaces and less than 10 characters",
+						start: 'what do you want to set the prefix to?',
+						retry: 'please provide a valid prefix without spaces and less than 10 characters',
 						optional: true,
 					},
 				},

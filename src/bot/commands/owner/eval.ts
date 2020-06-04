@@ -5,7 +5,7 @@ import util from 'util';
 import { postHaste } from '../../util';
 import { MESSAGES, SENSITIVE_PATTERN_REPLACEMENT } from '../../util/constants';
 
-export default class EvalCommand extends Command {
+export default class extends Command {
 	public constructor() {
 		super('eval', {
 			category: 'owner',

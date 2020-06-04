@@ -4,6 +4,8 @@ import { join } from 'path';
 import { Logger } from 'winston';
 import SettingsProvider from '../../database';
 import { logger } from '../util/logger';
+import S3 from 'aws-sdk/clients/s3';
+import DownloadManager from '../structures/DownloadManager';
 
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -11,6 +13,7 @@ declare module 'discord-akairo' {
 		commandHandler: CommandHandler;
 		config: ClientOptions;
 		settings: SettingsProvider;
+		downloadManager: DownloadManager;
 	}
 }
 
@@ -33,6 +36,12 @@ export default class Client extends AkairoClient {
 
 		this.config = config;
 	}
+
+	public s3: S3 = new S3({
+		accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID!,
+		secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY!,
+		region: process.env.AWS_S3_REGION!,
+	});
 
 	public config: ClientOptions;
 
@@ -81,6 +90,8 @@ export default class Client extends AkairoClient {
 
 	private async load(): Promise<this> {
 		await this.settings.init();
+
+		this.downloadManager = new DownloadManager(this);
 
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,

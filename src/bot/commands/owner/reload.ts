@@ -1,7 +1,7 @@
 import { Command, Inhibitor, Listener } from 'discord-akairo';
 import { Message } from 'discord.js';
 
-export default class ReloadCommand extends Command {
+export default class extends Command {
 	public constructor() {
 		super('reload', {
 			aliases: ['reload'],

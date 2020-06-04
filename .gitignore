@@ -63,3 +63,7 @@ dist/
 
 # editor configurations
 .vscode/
+
+# configuration files
+.env
+gateway.toml

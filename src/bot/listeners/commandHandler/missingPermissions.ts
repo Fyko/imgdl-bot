@@ -7,7 +7,6 @@ export interface MISSING {
 
 const MISSING: MISSING = {
 	notOwner: 'this command is reserved for the server owner!',
-	notMaster: "you're missing the Giveawy Master role or the `Manage Guild` permission to run that command.",
 };
 
 export default class MissingPermissionsListener extends Listener {
@@ -20,14 +19,15 @@ export default class MissingPermissionsListener extends Listener {
 	}
 
 	public async exec(msg: Message, _: Command, type: any, missing: any): Promise<Message | Message[] | void> {
+		if (typeof missing === 'object') missing = missing[0];
 		if (Object.keys(missing).includes(missing)) return msg.util!.reply(MISSING[missing]);
 
 		let text;
 		if (type === 'client') {
-			const str = this.missingPermissions(msg.channel as TextChannel, this.client.user!, missing);
+			const str = MissingPermissionsListener.missingPermissions(msg.channel as TextChannel, this.client.user!, missing);
 			text = `I'm missing ${str} to process that command!`;
 		} else {
-			const str = this.missingPermissions(msg.channel as TextChannel, msg.author, missing);
+			const str = MissingPermissionsListener.missingPermissions(msg.channel as TextChannel, msg.author, missing);
 			text = `you're missing ${str} to use that command!`;
 		}
 
@@ -41,7 +41,7 @@ export default class MissingPermissionsListener extends Listener {
 	}
 
 	// credit to 1Computer1
-	public missingPermissions(channel: TextChannel, user: User, permissions: any): string {
+	public static missingPermissions(channel: TextChannel, user: User, permissions: any): string {
 		const missingPerms = channel
 			.permissionsFor(user)!
 			.missing(permissions)

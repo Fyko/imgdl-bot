@@ -1,7 +1,7 @@
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import ImgDlCommand from '../../structures/ImgDlCommand';
 
-export default class PingCommand extends Command {
+export default class extends ImgDlCommand {
 	public constructor() {
 		super('ping', {
 			aliases: ['ping', 'latency', 'test'],

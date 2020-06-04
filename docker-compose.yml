@@ -1,10 +1,24 @@
-version: '2.4'
+version: '3.7'
 
 services:
   bot:
-    build:
-      context: .
-    restart: unless-stopped
-    env_file:
-      - ./.env
-    network_mode: 'host'
+   build:
+    context: .
+   restart: unless-stopped
+   env_file:
+    - ./.env
+
+  rabbit:
+    image: rabbitmq
+
+  redis:
+    image: redis:5
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: doctordoctor
+
+volumes: 
+  mongo-volume:
