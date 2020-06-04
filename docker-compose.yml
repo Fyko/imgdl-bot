@@ -1,10 +1,68 @@
-version: '2.4'
+version: "2.1"
 
 services:
+  # rabbit MQ instance
+  rabbit:
+    build: docker/rabbit
+    hostname: rabbit
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=fyko
+      - RABBITMQ_DEFAULT_PASS=simba
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 15s
+      timeout: 5s
+
+  # redis instance
+  redis:
+    image: "redis:5-alpine"
+    hostname: redis
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping"]
+      interval: 10s
+      timeout: 5s
+    volumes:
+      - "redis_data:/data"
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
+    depends_on:
+      - redis
+
+  # gateway connection
+  gateway:
+    build: docker/gateway
+    ports:
+      - "4500:4500"
+    depends_on:
+      rabbit:
+        condition: service_healthy
+
+  # the discord bot
   bot:
     build:
       context: .
-    restart: unless-stopped
+      dockerfile: docker/bot/Dockerfile
     env_file:
-      - ./.env
-    network_mode: 'host'
+      - docker/bot/.env 
+    restart: always
+    depends_on:
+      rabbit:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  redis_data:
+
+networks:
+  redis:

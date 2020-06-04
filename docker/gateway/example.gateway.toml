@@ -1,0 +1,14 @@
+token = "bot token"
+events = ["GUILD_CREATE", "GUILD_UPDATE", "GUILD_DELETE", "CHANNEL_CREATE", "CHANNEL_UPDATE", "CHANNEL_DELETE", "MESSAGE_CREATE"]
+
+intents = ["GUILDS", "GUILD_CHANNELS", "GUILD_MESSAGES"]
+
+[broker]
+type = "amqp"
+
+[amqp]
+url = "amqp://rabbit"
+
+[prometheus]
+address = ":4500"
+endpoint = "/metrics"
