@@ -10,7 +10,6 @@ import { pipeline } from 'stream';
 import { promisify } from 'util';
 import ImgDlClient from '../client/ImgDlClient';
 import { codeb, formatBytes, localize, uuid } from '../util';
-import fsn from 'fs-nextra';
 
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
@@ -226,9 +225,6 @@ export default class Download {
 		});
 
 		console.dir('S3 Response: ', upload);
-
-		// delete the directory
-		fsn.remove(dir);
 
 		// clear the memory log
 		clearInterval(memoryInterval);

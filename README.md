@@ -1,6 +1,11 @@
 # imGdL ☁
 a Discord bot to recursively download images from a Discord channel
 
+## Demo
+<p align="center">
+  <img src="./.github/demo.gif" alt="npkill demo gif" />
+</p>
+
 ## Reference
 - Invite Link: https://fyko.net/bot?id=530204772633018378&p=116736
 

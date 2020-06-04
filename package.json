@@ -20,7 +20,6 @@
         "common-tags": "^1.8.0",
         "discord-akairo": "github:discord-akairo/discord-akairo",
         "discord.js": "github:discordjs/discord.js",
-        "fs-nextra": "^0.5.1",
         "mongoose": "^5.9.17",
         "node-fetch": "~2.6.0",
         "tslib": "^1.13.0",
