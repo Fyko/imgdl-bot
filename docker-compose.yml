@@ -16,6 +16,8 @@ services:
 
   mongo:
     image: mongo
+    volumes: 
+      - ./mongo-volume:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: doctordoctor
