@@ -1,0 +1,22 @@
+[package]
+name = "imgdl"
+version = "0.2.0"
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/fyko/imgdl-bot"
+documentation = "https://github.com/fyko/imgdl-bot/tree/cli#readme"
+description = "a cli app to recursively download images from a Discord channel"
+edition = "2018"
+keywords = ["discord", "cli"]
+authors = ["Carter Himmel <me@fyko.net>"]
+
+[dependencies]
+clap = { version = "2", features = ["yaml"] }
+env_logger =  "0.7"
+home = "0.5"
+log = "0.4"
+reqwest = { version = "0.10", features = ["json", "blocking"] }
+rustacles-model = { git = "https://github.com/spec-tacles/rustacles" }
+serde = "1"
+serde_derive = "1"
+toml = "0.5"

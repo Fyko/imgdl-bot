@@ -1,0 +1,21 @@
+name: imgdl
+version: 0.1.0
+author: Carter Himmel <me@fyko.net>
+about: a cli app to recursively download images from a Discord channel 
+args:
+  - short:
+      help: Wether or not to display a smaller view
+      short: s
+      long: short
+      global: true
+  - pretty:
+      help: Wether or not to display a prettier view
+      short: p
+      long: pretty
+	  global: true
+
+subcommands:
+	- config
+		subcommands:
+			set:
+				help: Sets a config value
