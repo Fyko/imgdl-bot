@@ -1,0 +1,33 @@
+# Copyright (c) 2020 LaunchBadge, LLC. All rights reserved. MIT license.
+# https://github.com/launchbadge/sqlx/blob/master/.github/workflows/sqlx.yml
+
+name: imgdl
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-check-${{ matrix.runtime }}-${{ hashFiles('**/Cargo.lock') }}
+
+      - uses: actions-rs/cargo@v1
+        with:
+          command: check

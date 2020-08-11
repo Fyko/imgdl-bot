@@ -25,7 +25,6 @@ pub fn read_config() -> Option<Config> {
     };
 
     let path = format!("{}/{}/{}", home, ".imgdl", "config.toml");
-    debug!("Path to config file: {}", path);
     let file = fs::read(path);
     match file {
         Ok(file) => {
