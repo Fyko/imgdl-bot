@@ -1,7 +1,7 @@
 use chrono::{DateTime, FixedOffset, NaiveDateTime};
 use indicatif::{ProgressBar, ProgressStyle};
 use reqwest::blocking::Client;
-use rustacles_model::{
+use spectacles_model::{
     message::{Message, MessageAttachment},
     User,
 };

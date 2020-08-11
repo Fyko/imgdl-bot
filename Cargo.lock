@@ -489,9 +489,9 @@ dependencies = [
  "indicatif",
  "log",
  "reqwest",
- "rustacles-model",
  "serde",
  "serde_derive",
+ "spectacles-model",
  "tokio",
  "toml",
 ]
@@ -974,19 +974,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustacles-model"
-version = "0.1.0"
-source = "git+https://github.com/spec-tacles/rustacles#bfb3d1ec42c746c5998c3fccc208561c0b10a873"
-dependencies = [
- "chrono",
- "serde",
- "serde_derive",
- "serde_json",
- "serde_repr",
- "tokio-fs",
-]
-
-[[package]]
 name = "ryu"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1108,6 +1095,20 @@ dependencies = [
  "libc",
  "redox_syscall",
  "winapi 0.3.9",
+]
+
+[[package]]
+name = "spectacles-model"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "55b5faa310e1da18a60901d3e0f2ecabe881239be82f23199764645b9188824e"
+dependencies = [
+ "chrono",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_repr",
+ "tokio-fs",
 ]
 
 [[package]]
