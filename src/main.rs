@@ -98,7 +98,6 @@ fn main() {
             let write = io::copy(&mut res.unwrap().text().unwrap().as_bytes(), &mut output);
             match write {
                 Ok(_) => {
-                    // info!("Wrote image #{}/{} to {}", &index, length, &path)
                     pb.inc(1);
                 }
                 Err(err) => panic!(
@@ -107,6 +106,7 @@ fn main() {
                 ),
             }
         }
+        pb.finish();
 
         info!("Successfully downloaded {} images to {}", length, &folder);
 
