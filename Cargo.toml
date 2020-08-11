@@ -19,7 +19,7 @@ hex = "0.4"
 indicatif = "0.15"
 log = "0.4"
 reqwest = { version = "0.10", features = ["json", "blocking"] }
-rustacles-model = {  version = "*", git = "https://github.com/spec-tacles/rustacles" }
+rustacles-model = { version = "*", git = "https://github.com/spec-tacles/rustacles" }
 serde = "1"
 serde_derive = "1"
 tokio = { version = "0.2", features = ["full"] }
